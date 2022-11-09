@@ -53,6 +53,21 @@ def nova_empresa(request):
         return redirect('/home/nova-empresa')
 
 
+def empresas(request):
+    empresas = Empresa.objects.all()
+    tecnologias = Tecnologias.objects.all()
+    return render(request, 'empresas.html', {'empresas': empresas, 'tecnologias': tecnologias})
+
+def excluir_empresa(request, id):
+    empresa = Empresa.objects.get(id=id)
+    empresa.delete()
+    messages.add_message(request, constants.SUCCESS, 'Empresa deletada com sucesso')
+    return redirect('/home/empresas')
+
+
+
+
+
 
 
 
