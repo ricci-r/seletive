@@ -23,7 +23,8 @@
             <div class="borda-box"></div>
             <div class="body-box">
 
-                <form>
+                <form action="{% url 'empresas' %}" method="GET">
+                    {% csrf_token %}
                 <div class="row">
 
                         <div class="col-md-5">
@@ -32,7 +33,9 @@
 
                         <div class="col-md-4">
                             <select class="form-select" name="tecnologias">
-                                <option value="">--------</option>
+                                {% for tech in tecnologias %}
+                                    <option value="{{tech.id}}">{{tech}}</option>
+                                {% endfor %}
                             </select>
                         </div>
 
@@ -62,7 +65,12 @@
                                 </select>
                             </td>
                             <td>
-                                Quantidade de vagas
+                                {% if empresa.qtd_vagas > 0  %}
+                                    <img src="{% static 'empresa/image/flag_green.png' %}" alt="">
+                                    {% else %}
+                                    <img src="{% static 'empresa/image/flag_red.png' %}" alt="">
+                                {% endif %}
+                                {{ empresa.qtd_vagas }}
                             </td>
                             <td>
                                 <a href="{% url 'excluir_empresa' empresa.id %}" class="btn-excluir">Excluir empresa</a>
