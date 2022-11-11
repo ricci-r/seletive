@@ -1,7 +1,7 @@
 from django.contrib import messages
 from django.contrib.messages import constants
 from django.http import Http404
-from django.shortcuts import redirect
+from django.shortcuts import get_object_or_404, redirect, render
 
 from empresa.models import Vagas
 
@@ -38,3 +38,7 @@ def nova_vaga(request):
 
     elif request.method == 'GET':
         raise Http404()
+
+def vaga(request, id):
+    vaga = get_object_or_404(Vagas, id=id)
+    return render(request, 'vaga.html', {'vaga': vaga})
