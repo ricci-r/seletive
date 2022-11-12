@@ -2,13 +2,13 @@ from django.conf import settings
 from django.contrib import messages
 from django.contrib.messages import constants
 from django.core.mail import EmailMultiAlternatives
-from django.http import Http404, HttpResponse
+from django.http import Http404
 from django.shortcuts import get_object_or_404, redirect, render
 from django.template.loader import render_to_string
 from django.utils.html import strip_tags
 
 from empresa.models import Vagas
-from vagas.models import Tarefa
+from vagas.models import Emails, Tarefa
 
 
 # Create your views here.
@@ -47,7 +47,8 @@ def nova_vaga(request):
 def vaga(request, id):
     vaga = get_object_or_404(Vagas, id=id)
     tarefas = Tarefa.objects.filter(vaga=vaga).filter(realizada=False)
-    return render(request, 'vaga.html', {'vaga':vaga, 'tarefas':tarefas})
+    emails = Emails.objects.filter(vaga=vaga)
+    return render(request, 'vaga.html', {'vaga':vaga, 'tarefas':tarefas, 'emails':emails})
 
 def nova_tarefa(request, id_vaga):
     titulo = request.POST.get('titulo')
@@ -96,10 +97,23 @@ def envia_email(request, id_vaga):
     email.attach_alternative(html_content, "text/html")
 
     if email.send():
+        mail = Emails(
+            vaga=vaga,
+            assunto=assunto,
+            corpo=corpo,
+            enviado=True
+        )
+        mail.save()
         messages.add_message(request, constants.SUCCESS, 'E-mail enviado com sucesso!')
         return redirect(f'/vagas/vaga/{id_vaga}')
     else:
+        mail = Emails(
+            vaga=vaga,
+            assunto=assunto,
+            corpo=corpo,
+            enviado=False
+        )
+        mail.save()
         messages.add_message(request, constants.ERROR, 'Não conseguimos enviar o seu e-mail.')
+        return redirect(f'/vagas/vaga/{id_vaga}')
 
-
-    return HttpResponse(vaga)
