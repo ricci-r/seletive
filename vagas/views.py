@@ -1,7 +1,11 @@
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.messages import constants
-from django.http import Http404
+from django.core.mail import EmailMultiAlternatives
+from django.http import Http404, HttpResponse
 from django.shortcuts import get_object_or_404, redirect, render
+from django.template.loader import render_to_string
+from django.utils.html import strip_tags
 
 from empresa.models import Vagas
 from vagas.models import Tarefa
@@ -80,3 +84,22 @@ def realizar_tarefa(request, id):
     messages.add_message(request, constants.SUCCESS, 'Tarefa realizada com sucesso, parabéns!')
 
     return redirect(f'/vagas/vaga/{tarefa.vaga.id}')
+
+def envia_email(request, id_vaga):
+    vaga = Vagas.objects.get(id=id_vaga)
+    assunto = request.POST.get('assunto')
+    corpo = request.POST.get('corpo')
+
+    html_content = render_to_string('emails/template.html', {'corpo': corpo})
+    text_content = strip_tags(html_content)
+    email = EmailMultiAlternatives(assunto, text_content, settings.EMAIL_HOST_USER, [vaga.email,])
+    email.attach_alternative(html_content, "text/html")
+
+    if email.send():
+        messages.add_message(request, constants.SUCCESS, 'E-mail enviado com sucesso!')
+        return redirect(f'/vagas/vaga/{id_vaga}')
+    else:
+        messages.add_message(request, constants.ERROR, 'Não conseguimos enviar o seu e-mail.')
+
+
+    return HttpResponse(vaga)

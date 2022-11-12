@@ -144,3 +144,9 @@ MESSAGE_TAGS = {
     constants.INFO: 'alert-info',
     constants.WARNING: 'alert-warning',
 }
+
+# Email
+# Produção trocar 'console' por smtp e realizar as devidas configurações
+
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+EMAIL_HOST_USER = "rodrigo@ricci.dev.br"
