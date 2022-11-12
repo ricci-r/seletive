@@ -46,7 +46,7 @@ class Vagas(models.Model):
         ('F', 'Finalizado')
     )
 
-    empresa = models.ForeignKey(Empresa, null=True, on_delete=models.SET_NULL)
+    empresa = models.ForeignKey(Empresa, null=True, on_delete=models.CASCADE)
     titulo = models.CharField(max_length=30)
     nivel_experiencia = models.CharField(max_length=2, choices=choices_experiencia)
     data_final = models.DateField()
