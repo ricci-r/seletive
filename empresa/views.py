@@ -24,15 +24,15 @@ def nova_empresa(request):
 
         if (len(nome.strip()) == 0 or len(email.strip()) == 0 or len(cidade.strip()) == 0 or len(endereco.strip()) == 0 or len(nicho.strip()) == 0 or len(caractristica.strip()) == 0 or (not logo)):
             messages.add_message(request, constants.ERROR, 'Preencha todos os campos')
-            return redirect('/home/nova-empresa')
+            return redirect('/companies/add')
 
         if logo.size > 100_000_000:
             messages.add_message(request, constants.ERROR, 'A logo da empresa deve ter menos de 10MB')
-            return redirect('/home/nova-empresa')
+            return redirect('/companies/add')
 
         if nicho not in [i[0] for i in Empresa.nicho_mercado]:
             messages.add_message(request, constants.ERROR, 'Nicho de mercado inválido')
-            return redirect('/home/nova-empresa')
+            return redirect('/companies/add')
 
         empresa = Empresa(
             logo=logo,
@@ -50,7 +50,7 @@ def nova_empresa(request):
 
         messages.add_message(request, constants.SUCCESS, 'Empresa cadastrada com sucesso')
 
-        return redirect('/home/nova-empresa')
+        return redirect('/companies/add')
 
 def empresas(request):
     tecnologias_filtrar = request.GET.get('tecnologias')
@@ -77,7 +77,7 @@ def excluir_empresa(request, id):
     empresa = Empresa.objects.get(id=id)
     empresa.delete()
     messages.add_message(request, constants.SUCCESS, 'Empresa deletada com sucesso')
-    return redirect('/home/empresas')
+    return redirect('/companies/list')
 
 
 

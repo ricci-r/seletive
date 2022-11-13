@@ -3,9 +3,9 @@ from django.urls import path
 from vagas import views
 
 urlpatterns = [
-    path('nova-vaga/', views.nova_vaga, name="nova_vaga"),
-    path('vaga/<int:id>', views.vaga, name="vaga"),
-    path('nova-tarefa/<int:id_vaga>', views.nova_tarefa, name="nova_tarefa"),
-    path('realizar-tarefa/<int:id>', views.realizar_tarefa, name="realizar_tarefa"),
-    path('envia-email/<int:id_vaga>', views.envia_email, name="envia_email"),
+    path('add/', views.nova_vaga, name="nova_vaga"),
+    path('list/<int:id>', views.vaga, name="vaga"),
+    path('task/<int:id_vaga>', views.nova_tarefa, name="nova_tarefa"),
+    path('perform-task/<int:id>', views.realizar_tarefa, name="realizar_tarefa"),
+    path('send-mail/<int:id_vaga>', views.envia_email, name="envia_email"),
 ]

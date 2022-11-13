@@ -2,29 +2,33 @@
 <!doctype html>
 <html lang="pt-BR">
     <head>
-        <meta charset="utf-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta charset="utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <meta name="description" content="Seletive"/>
+        <meta name="keywords" content="Sistema"/>
         <title>
-        {% block 'title' %}{% endblock %}</title>
-        <link rel="stylesheet" href="{% static 'base/css/base.css' %}">
+            {% block 'title' %}{% endblock 'title' %}
+        </title>
+        <link rel="stylesheet" href="{% static 'base/css/base.css' %}"/>
         <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
-              rel="stylesheet">
-        {% block 'head' %}{% endblock %}
-        </head>
-        <body>
-            <nav class="navbar navbar-expand-lg navbar-dark bg-nav">
-                <a class="navbar-brand" href="#">SELETI.VE</a>
-                <button class="navbar-toggler"
-                        type="button"
-                        data-toggle="collapse"
-                        data-target="#navbarNav"
-                        aria-controls="navbarNav"
-                        aria-expanded="false"
-                        aria-label="Toggle navigation">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
-            </nav>
-            {% block 'body' %}{% endblock %}
-                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
-            </body>
-        </html>
+              rel="stylesheet"/>
+        {% block 'head' %}{% endblock 'head' %}
+    </head>
+    <body>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-nav">
+            s
+            <a class="navbar-brand" href="#">SELETI.VE</a>
+            <button class="navbar-toggler"
+                    type="button"
+                    data-toggle="collapse"
+                    data-target="#navbarNav"
+                    aria-controls="navbarNav"
+                    aria-expanded="false"
+                    aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+        </nav>
+        {% block 'body' %}{% endblock 'body' %}
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    </body>
+</html>

@@ -1,14 +1,14 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 {% load static %}
 {% block 'head' %}
-    <link href="{% static 'empresa/css/empresa.css' %}" rel="stylesheet">
-{% endblock %}
+    <link href="{% static 'empresa/css/empresa.css' %}" rel="stylesheet"/>
+{% endblock 'head' %}
 {% block 'body' %}
-    <br>
+    <br/>
     <div class="container">
         {% if messages %}
             {% for message in messages %}
-                <br>
+                <br/>
                 <section class="alert {{ message.tags }}">
                     {{ message }}
                 </section>
@@ -16,21 +16,21 @@
         {% endif %}
         <div class="row">
             <div class="col-md-3">
-                <img width="100%" src="{{ empresa.logo.url }}">
+                <img width="100%" height="100%" src="{{ empresa.logo.url }}" alt="{{ empresa.nome }}"/>
             </div>
             <div class="col-md">
                 <h1 class="titulo">{{ empresa.nome }}</h1>
                 <p class="paragrafo">{{ empresa.endereco }}</p>
             </div>
         </div>
-        <br>
+        <br/>
         <div class="row">
             <div class="col-md-6">
                 <label>Nicho de mercado:</label>
                 <input disabled
                        type="text"
                        class="form-control"
-                       value="{{ empresa.get_nicho_display }}">
+                       value="{{ empresa.get_nicho_display }}"/>
             </div>
             <div class="col-md-3">
                 <label>Tecnologias usadas:</label>
@@ -43,7 +43,7 @@
                 </select>
             </div>
         </div>
-        <br>
+        <br/>
         <div class="row">
             <div class="col-md-7">
                 <label>Características da empresa:</label>
@@ -51,7 +51,7 @@
             </div>
             <div class="col-md-3"></div>
         </div>
-        <hr>
+        <hr/>
         <a data-bs-toggle="modal"
            data-bs-target="#exampleModal"
            class="btn btn-lg btn-orange">Nova vaga</a>
@@ -66,15 +66,15 @@
                             <div class="row">
                                 <div class="col-md">
                                     <label class="paragrafo">Nível:</label>
-                                    <br>
+                                    <br/>
                                     <label class="paragrafo paragrafo-orange">{{ vaga.get_nivel_experiencia_display }}</label>
                                 </div>
                                 <div class="col-md">
                                     <label class="paragrafo">
                                         Status
-                                        <img src="{% static 'empresa/image/flag_green.png' %}">
+                                        <img src="{% static 'empresa/image/flag_green.png' %}" width="22" height="22" alt="Flag"/>
                                     </label>
-                                    <br>
+                                    <br/>
                                     <label class="paragrafo paragrafo-orange">{{ vaga.get_status_display }}</label>
                                 </div>
                             </div>
@@ -84,8 +84,8 @@
             {% endfor %}
         </div>
     </div>
-    <br>
-    <br>
+    <br/>
+    <br/>
     <div class="modal fade modal-lg"
          id="exampleModal"
          tabindex="-1"
@@ -103,7 +103,7 @@
                             aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="{% url 'nova_vaga' %}" method="POST">
+                    <form action="{% url 'nova_vaga' %}" method="post">
                         {% csrf_token %}
                         <div class="row">
                             <div class="col-md">
@@ -111,17 +111,17 @@
                                 <input type="text"
                                        name="titulo"
                                        class="form-control"
-                                       placeholder="Digite o título da vaga...">
+                                       placeholder="Digite o título da vaga..."/>
                             </div>
                             <div class="col-md">
                                 <label>Email:</label>
                                 <input type="email"
                                        name="email"
                                        class="form-control"
-                                       placeholder="email@email.com.br">
+                                       placeholder="email@email.com.br"/>
                             </div>
                         </div>
-                        <br>
+                        <br/>
                         <div class="row">
                             <div class="col-md">
                                 <label>Tecnologias que já domino:</label>
@@ -144,7 +144,7 @@
                                 </select>
                             </div>
                         </div>
-                        <br>
+                        <br/>
                         <div class="row">
                             <div class="col-md">
                                 <label>Nível de experiência:</label>
@@ -162,15 +162,15 @@
                             </div>
                             <div class="col-md">
                                 <label>Data final:</label>
-                                <input type="date" class="form-control" name="data_final">
+                                <input type="date" class="form-control" name="data_final"/>
                             </div>
                         </div>
-                        <br>
+                        <br/>
                         <div class="row">
                             <div class="col-md">
                                 <label>Empresa:</label>
                                 <select name="empresa" class="form-select">
-                                    {% for empresa_inter in empresas  %}
+                                    {% for empresa_inter in empresas %}
                                         <option {% if empresa.id == empresa_inter.id %} selected{% endif %}
                                                 value="{{ empresa_inter.id }}">
                                             {{ empresa_inter }}
@@ -179,7 +179,7 @@
                                 </select>
                             </div>
                         </div>
-                        <br>
+                        <br/>
                         <div class="row">
                             <div class="col-md">
                                 <label>Status:</label>
@@ -202,11 +202,11 @@
                                 </select>
                             </div>
                         </div>
-                        <br>
-                        <input type="submit" value="Nova empresa" class="btn btn-lg btn-orange">
+                        <br/>
+                        <input type="submit" value="Salvar" class="btn btn-lg btn-orange"/>
                     </form>
                 </div>
             </div>
         </div>
     </div>
-{% endblock %}
+{% endblock 'body' %}

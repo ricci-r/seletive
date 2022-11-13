@@ -38,7 +38,7 @@ def nova_vaga(request):
         vaga.tecnologias_dominadas.add(*tecnologias_domina)
         vaga.save()
 
-        return redirect(f'/home/empresa/{empresa}')
+        return redirect(f'/companies/edit/{empresa}')
 
 
     elif request.method == 'GET':
@@ -67,24 +67,24 @@ def nova_tarefa(request, id_vaga):
 
         tarefa.save()
         messages.add_message(request, constants.SUCCESS, 'Tarefa adicionada com sucesso')
-        return redirect(f'/vagas/vaga/{id_vaga}')
+        return redirect(f'/vacancy/list/{id_vaga}')
     except:
         messages.add_message(request, constants.ERROR, 'Erro interno do sistema')
-        return redirect(f'/vagas/vaga/{id_vaga}')
+        return redirect(f'/vacancy/list/{id_vaga}')
 
 
 def realizar_tarefa(request, id):
     tarefa_list = Tarefa.objects.filter(id=id).filter(realizada=False)
     if not tarefa_list.exists():
         messages.add_message(request, constants.ERROR, 'Realize apenas uma tarefa valida')
-        return redirect('/home/empresas/')
+        return redirect('/companies/')
 
     tarefa = tarefa_list.first()
     tarefa.realizada = True
     tarefa.save()
     messages.add_message(request, constants.SUCCESS, 'Tarefa realizada com sucesso, parabéns!')
 
-    return redirect(f'/vagas/vaga/{tarefa.vaga.id}')
+    return redirect(f'/vacancy/list/{tarefa.vaga.id}')
 
 def envia_email(request, id_vaga):
     vaga = Vagas.objects.get(id=id_vaga)
@@ -105,7 +105,7 @@ def envia_email(request, id_vaga):
         )
         mail.save()
         messages.add_message(request, constants.SUCCESS, 'E-mail enviado com sucesso!')
-        return redirect(f'/vagas/vaga/{id_vaga}')
+        return redirect(f'/vacancy/list/{id_vaga}')
     else:
         mail = Emails(
             vaga=vaga,
@@ -115,5 +115,5 @@ def envia_email(request, id_vaga):
         )
         mail.save()
         messages.add_message(request, constants.ERROR, 'Não conseguimos enviar o seu e-mail.')
-        return redirect(f'/vagas/vaga/{id_vaga}')
+        return redirect(f'/vacancy/list/{id_vaga}')
 
