@@ -5,6 +5,9 @@ from django.shortcuts import get_object_or_404, redirect, render
 from empresa.models import Empresa, Tecnologias, Vagas
 
 
+def home(request):
+    return render(request, "home.html")
+
 def nova_empresa(request):
     if request.method == "GET":
 

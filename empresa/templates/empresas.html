@@ -1,9 +1,9 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 {% load static %}
 {% load filtro %}
 {% block 'head' %}
-    <link href="{% static 'empresa/css/empresas.css' %}" rel="stylesheet">
-{% endblock %}
+    <link href="{% static 'empresa/css/empresas.css' %}" rel="stylesheet"/>
+{% endblock 'head' %}
 {% block 'body' %}
     <div class="wrapper">
         <div class="box">
@@ -20,14 +20,14 @@
             </div>
             <div class="borda-box"></div>
             <div class="body-box">
-                <form action="{% url 'empresas' %}" method="GET">
+                <form action="{% url 'empresas' %}" method="get">
                     {% csrf_token %}
                     <div class="row">
                         <div class="col-md-5">
                             <input type="text"
                                    placeholder="Busque pelo nome"
                                    class="form-control"
-                                   name="nome">
+                                   name="nome"/>
                         </div>
                         <div class="col-md-4">
                             <select class="form-select" name="tecnologias">
@@ -39,7 +39,7 @@
                             </select>
                         </div>
                         <div class="col-md-3">
-                            <input type="submit" value="FILTRAR" class="btn btn-lg btn-orange">
+                            <input type="submit" value="FILTRAR" class="btn btn-lg btn-orange"/>
                         </div>
                     </div>
                 </form>
@@ -51,17 +51,18 @@
                         <th>Quantidade de vagas</th>
                         <th>Ação</th>
                     </tr>
-                    {% for empresa in empresas  %}
+                    {% for empresa in empresas %}
                         <tr {% if not forloop.counter|is_par %} class="tabela-linha"{% endif %}>
                             <td>
-                                <a href="{% url 'empresa_unica' empresa.id %}" title="{{ empresa.nome }}">
+                                <a href="{% url 'empresa_unica' empresa.id %}"
+                                   title="{{ empresa.nome }}">
                                     {{ empresa.nome }}
                                 </td>
                             </a>
                             <td>{{ empresa.endereco }}</td>
                             <td>
                                 <select class="form-select">
-                                    {% for tech in empresa.tecnologias.all  %}
+                                    {% for tech in empresa.tecnologias.all %}
                                         <option>
                                             {{ tech }}
                                         </option>
@@ -69,10 +70,16 @@
                                 </select>
                             </td>
                             <td>
-                                {% if empresa.qtd_vagas > 0  %}
-                                    <img src="{% static 'empresa/image/flag_green.png' %}" alt="">
+                                {% if empresa.qtd_vagas > 0 %}
+                                    <img src="{% static 'empresa/image/flag_green.png' %}"
+                                         width="22"
+                                         height="22"
+                                         alt="Flag"/>
                                 {% else %}
-                                    <img src="{% static 'empresa/image/flag_red.png' %}" alt="">
+                                    <img src="{% static 'empresa/image/flag_red.png' %}"
+                                         width="22"
+                                         height="22"
+                                         alt="Flag"/>
                                 {% endif %}
                                 {{ empresa.qtd_vagas }}
                             </td>
@@ -85,4 +92,4 @@
             </div>
         </div>
     </div>
-{% endblock %}
+{% endblock 'body' %}

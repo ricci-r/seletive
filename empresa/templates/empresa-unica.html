@@ -16,7 +16,10 @@
         {% endif %}
         <div class="row">
             <div class="col-md-3">
-                <img width="100%" height="100%" src="{{ empresa.logo.url }}" alt="{{ empresa.nome }}"/>
+                <img width="100%"
+                     height="100%"
+                     src="{{ empresa.logo.url }}"
+                     alt="{{ empresa.nome }}"/>
             </div>
             <div class="col-md">
                 <h1 class="titulo">{{ empresa.nome }}</h1>
@@ -72,7 +75,10 @@
                                 <div class="col-md">
                                     <label class="paragrafo">
                                         Status
-                                        <img src="{% static 'empresa/image/flag_green.png' %}" width="22" height="22" alt="Flag"/>
+                                        <img src="{% static 'empresa/image/flag_green.png' %}"
+                                             width="22"
+                                             height="22"
+                                             alt="Flag"/>
                                     </label>
                                     <br/>
                                     <label class="paragrafo paragrafo-orange">{{ vaga.get_status_display }}</label>

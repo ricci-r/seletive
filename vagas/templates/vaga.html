@@ -1,23 +1,23 @@
-{% extends 'base.html' %}
+{% extends "base.html" %}
 {% load static %}
 {% block 'head' %}
-    <link rel="stylesheet" href="{% static 'vaga/css/vaga.css' %}">
-{% endblock %}
+    <link rel="stylesheet" href="{% static 'vaga/css/vaga.css' %}"/>
+{% endblock 'head' %}
 {% block 'body' %}
     <div class="container">
         {% if messages %}
             {% for message in messages %}
-                <br>
+                <br/>
                 <section class="alert {{ message.tags }}">
                     {{ message }}
                 </section>
             {% endfor %}
         {% endif %}
-        <br>
+        <br/>
         <h3 class="titulo">{{ vaga.titulo }}</h3>
         <p class="titulo2">{{ vaga.empresa }}</p>
         <p>Progresso atual</p>
-        <div style="width: 40%" class="progress">
+        <div class="progress">
             <div class="progress-bar progress-bar-striped bg-success"
                  role="progressbar"
                  style="width: {{ vaga.progresso }}%"
@@ -33,14 +33,14 @@
                 <div class="col-md">
                     <p class="titulo2">Crie uma tarefa</p>
                     <p>Lembre-se de realizar todas suas tarefas com antecedência</p>
-                    <form action="{% url 'nova_tarefa' vaga.id %}" method="POST">
+                    <form action="{% url 'nova_tarefa' vaga.id %}" method="post">
                         {% csrf_token %}
                         <label>Título:</label>
                         <input name="titulo"
                                type="text"
                                class="form-control input-tarefa"
-                               placeholder="Digite o título da tarefa...">
-                        <br>
+                               placeholder="Digite o título da tarefa..."/>
+                        <br/>
                         <label>Prioridade:</label>
                         <select name="prioridade" class="form-select input-tarefa">
                             <option value="U">
@@ -53,18 +53,18 @@
                                 Baixa
                             </option>
                         </select>
-                        <br>
+                        <br/>
                         <label>Data:</label>
                         <input name="data"
                                type="date"
                                class="form-control input-tarefa"
-                               placeholder="">
-                        <br>
-                        <input type="submit" value="Nova tarefa" class="btn btn-orange">
+                               placeholder=""/>
+                        <br/>
+                        <input type="submit" value="Nova tarefa" class="btn btn-orange"/>
                     </form>
                 </div>
                 <div class="col-md">
-                    {% for tarefa in tarefas  %}
+                    {% for tarefa in tarefas %}
                         <div class="li-tarefa">
                             <label>{{ tarefa.titulo }}</label>
                             <label class="prioridade-bloco">
@@ -88,15 +88,15 @@
                 <p>Envie e-mails para essa vaga por aqui.</p>
             </div>
             <div class="col-md">
-                <form action="{% url 'envia_email' vaga.id %}" method="POST">
+                <form action="{% url 'envia_email' vaga.id %}" method="post">
                     {% csrf_token %}
                     <label>Assunto:</label>
-                    <input name="assunto" type="text" class="form-control" placeholder="assunto">
-                    <br>
+                    <input name="assunto" type="text" class="form-control" placeholder="assunto"/>
+                    <br/>
                     <label>Corpo do email:</label>
                     <textarea name="corpo" class="form-control"></textarea>
-                    <br>
-                    <input type="submit" class="btn btn-orange" value="Enviar">
+                    <br/>
+                    <input type="submit" class="btn btn-orange" value="Enviar"/>
                 </form>
             </div>
         </div>
@@ -105,14 +105,18 @@
         <div class="container">
             <div class="row">
                 <h3 class="titulo">Histórico de e-mails</h3>
-                {% for email in emails %}
-                    <div class="col-md">
-                        <div class="box-email">
-                            <div class="header-email">{{ email.assunto }}</div>
-                            <div class="body-email">{{ email.corpo }}</div>
+                {% if emails %}
+                    {% for email in emails %}
+                        <div class="col-md">
+                            <div class="box-email">
+                                <div class="header-email">{{ email.assunto }}</div>
+                                <div class="body-email">{{ email.corpo }}</div>
+                            </div>
                         </div>
-                    </div>
-                {% endfor %}
+                    {% endfor %}
+                {% else %}
+                    <p>Não há  históricos de e-mails enviados</p>
+                {% endif %}
             </div>
         </div>
     </div>
@@ -149,4 +153,4 @@
             </div>
         </div>
     </div>
-{% endblock %}
+{% endblock 'body' %}
